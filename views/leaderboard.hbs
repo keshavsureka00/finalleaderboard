@@ -1,0 +1,80 @@
+<h1 class="lead text-center mt-2">Leaderboard</h1>
+<p class="text-muted text-center">updated {{lastUpdate}}</p>
+<p class="text-muted text-center">{{leaderboardUpdatingEnd}}</p>
+<div class="row justify-content-center">
+  <div class="col-xs-12 col-sm-8">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Team</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each teamList as |team|}}
+        <tr>
+          <th scope="row">{{inc @index}}</th>
+          <td>
+            <table class="table">
+              <p class="lead text-primary">{{team.name}}</p>
+              <tbody>
+                {{#each team.members as |member|}}
+                <tr>
+                  {{#if member.link}}
+                  <td class="text-muted"><a href={{member.link}} target="_blank"
+                      rel="noopener noreferrer">{{member.name}}
+                      - {{member.stackoverflow_id}}</a></td>
+                  {{else}}
+                  <td class="text-muted">{{member.name}}</td>
+                  {{/if}}
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </td>
+          <td>
+            <table class="table">
+              <p class="lead text-primary">{{team.score}}</p>
+              <tbody>
+                {{#each team.members as |member|}}
+                <tr>
+                  <td class="text-muted">{{member.score}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <div class="container mt-4">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {{#if hasPreviousPage }}
+        <li class="page-item">
+          <a class="page-link" href="?page=1&limit={{pageSize}}">First</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?page={{previousPage}}&limit={{pageSize}}">{{previousPage}}</a>
+        </li>
+        {{/if}}
+        {{#if hasMoreThanOnePage}}
+        <li class="page-item active">
+          <a class="page-link" href="?page={{currentPage}}&limit={{pageSize}}">{{currentPage}}</a>
+        </li>
+        {{/if}}
+        {{#if hasNextPage }}
+        <li class="page-item">
+          <a class="page-link" href="?page={{nextPage}}&limit={{pageSize}}">{{nextPage}}</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?page={{lastPage}}&limit={{pageSize}}">Last</a>
+        </li>
+        {{/if}}
+      </ul>
+    </nav>
+  </div>
+</div>
